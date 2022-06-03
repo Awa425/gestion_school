@@ -15,7 +15,7 @@ class ClasseController extends AbstractController
         $classes = $classeRepo->findAll();
         return $this->render('classe/index.html.twig', [
             'controller_name' => 'ClasseController',
-
+            'classes' => $classes,
         ]);
     }
 }
