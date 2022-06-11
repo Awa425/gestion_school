@@ -26,6 +26,10 @@ class Inscription
     #[ORM\JoinColumn(nullable: false)]
     private $etudiant;
 
+    #[ORM\ManyToOne(targetEntity: Classe::class, inversedBy: 'inscriptions')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $classes;
+
 
 
     public function __construct()
@@ -73,6 +77,18 @@ class Inscription
     public function setEtudiant(?Etudiant $etudiant): self
     {
         $this->etudiant = $etudiant;
+
+        return $this;
+    }
+
+    public function getClasses(): ?Classe
+    {
+        return $this->classes;
+    }
+
+    public function setClasses(?Classe $classes): self
+    {
+        $this->classes = $classes;
 
         return $this;
     }

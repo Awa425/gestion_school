@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ProfesseurController extends AbstractController
 {
-    #[Route('/professeur', name: 'app_professeur')]
+    #[Route('/prof/list', name: 'app_professeur')]
 
     public function index(ProfesseurRepository $repo, Request $request, PaginatorInterface $paginator): Response
     {
@@ -27,10 +27,13 @@ class ProfesseurController extends AbstractController
         ]);
     }
 
-    #[Route('/add-prof', name: 'add_professeur')]
-    public function addProf(Request $request, EntityManagerInterface $em): Response
+    #[Route('/prof/add', name: 'add_professeur')]
+    #[Route('/prof/{id}/edit', name: 'professeur_edit')]
+    public function addProf(Professeur $prof = null, Request $request, EntityManagerInterface $em): Response
     {
-        $prof = new Professeur();
+        if (!$prof) {
+            $prof = new Professeur();
+        }
         $form = $this->createForm(ProfType::class, $prof);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

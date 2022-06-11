@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    {{ form_start(formClasse) }}
+        <div class='container'>
+            <div class="form-group">
+                <label for="nomComplet" class="form-label mt-4">Nom Classe</label>
+                {{  form_widget(formClasse.libelle, { 'attr': { 'class': 'form-control'} } )}}
+                <small id="namelHelp" class="form-text text-muted"></small>
+            </div>
+            <div class="form-group">
+                <label for="nomComplet" class="form-label mt-4">Niveau</label>
+                {{  form_widget(formClasse.niveau, { 'attr': { 'class': 'form-control'} } )}}
+                <small id="namelHelp" class="form-text text-muted"></small>
+            </div>
+            <div class="form-group">
+                <label for="nomComplet" class="form-label mt-4">NFilliere</label>
+                {{  form_widget(formClasse.filliere, { 'attr': { 'class': 'form-control'} } )}}
+                <small id="namelHelp" class="form-text text-muted"></small>
+            </div>
+            {# <div class="form-group">
+                <label for="nomComplet" class="form-label mt-4">Rp</label>
+                {{  form_widget(formClasse.rp, { 'attr': { 'class': 'form-control'} } )}}
+                <small id="namelHelp" class="form-text text-muted"></small>
+            </div> #}
+            {{  form_widget(formClasse.Ajouter, { 'attr': { 'class': 'btn btn-primary'} } )}}
+
+        </div>
+     {{ form_end(formClasse) }}
+{% endblock %}

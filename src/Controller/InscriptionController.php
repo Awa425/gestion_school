@@ -33,9 +33,11 @@ class InscriptionController extends AbstractController
     public function inscrire(Request $request, EntityManagerInterface $em, AcRepository $acRepo, AnneeScolaireRepository $anRepo, ClasseRepository $classeRepo): Response
     {
         $etu = new Etudiant();
+
         $acs = $acRepo->findAll();
         $classes = $classeRepo->findAll();
         $anSc = $anRepo->findAll();
+
         $formEtu = $this->createFormBuilder($etu)
             ->add('nomComplet')
             ->add('email')

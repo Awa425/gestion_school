@@ -1,0 +1,31 @@
+
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container col-6">
+        {{ form_start(formAc) }}
+            <fieldset>
+                <div class="form-group">
+                    <label for="nomComplet" class="form-label mt-4">Nom Complet</label>
+                    {{  form_widget(formAc.nomComplet, { 'attr': { 'class': 'form-control', placeholder: "Votre nom complet"} } )}}
+                    <small id="namelHelp" class="form-text text-muted"></small>
+                </div>
+                <div class="form-group">
+                    <label for="nomComplet" class="form-label mt-4">Login</label>
+                    {{  form_widget(formAc.email, { 'attr': { 'class': 'form-control', placeholder: "Grade"} } )}}
+                    <small id="namelHelp" class="form-text text-muted"></small>
+                </div>
+                <div class="form-group">
+                    <label for="nomComplet" class="form-label mt-4">Password</label>
+                    {{  form_widget(formAc.password, { 'attr': { 'class': 'form-control'} } )}}
+                    <small id="namelHelp" class="form-text text-muted"></small>
+                </div>
+                <div class="form-group">
+                    <label for="nomComplet" class="form-label mt-4">Rp</label>
+                    {{  form_widget(formAc.rp, { 'attr': { 'class': 'form-control'} } )}}
+                    <small id="namelHelp" class="form-text text-muted"></small>
+                </div>
+                    {{  form_widget(formAc.Enregistrer, { 'attr': { 'class': 'btn btn-primary'} } )}}
+            </fieldset>
+        {{ form_end(formAc) }}
+    </div>
+{% endblock %}

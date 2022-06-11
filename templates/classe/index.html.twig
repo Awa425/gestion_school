@@ -20,11 +20,12 @@
 	<div class="example-wrapper">
 		<table class="table table-hover">
 			<thead>
-				<tr>
+				<tr class="text-center">
 					<th scope="col">Num</th>
 					<th scope="col">Niveau</th>
 					<th scope="col">Filliere</th>
 					<th scope="col">Libelle</th>
+					<th scope="col">Option</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -36,9 +37,17 @@
 						<td>{{ classe.niveau}}</td>
 						<td>{{ classe.filliere}}</td>
 						<td>{{ classe.libelle}}</td>
+						<td class="text-center">
+							<a href="" >Archiver</a>
+							<a href="" >Modifier</a>
+							<a href="">Detail</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
+	</div>
+	<div>
+		{{ knp_pagination_render(classes) }}
 	</div>
 {% endblock %}

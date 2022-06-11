@@ -39,45 +39,6 @@ class ProfesseurRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
-    //gérer le QueryBuilder de cette requête.
-    private function getOrderQueryBuilder()
-    {
-        // Select the orders and their packages
-        $queryBuilder = $this->createQueryBuilder('o')
-            ->addSelect('p');
-
-        // Add the package relation
-        $queryBuilder->leftJoin('o.packages', 'p');
-
-        // Add WHERE clause
-        $queryBuilder->where('o.deleted = 0')
-            ->andWhere('p.deleted = 0');
-
-        //Return the QueryBuilder
-        return $queryBuilder;
-    }
-
-    // gérer la récupération des résultats de la requête sous forme de pagination
-    public function getOrders($page)
-    {
-        $pageSize = 10;
-        $firstResult = ($page - 1) * $pageSize;
-
-        $queryBuilder = $this->getOrderQueryBuilder();
-
-        // Set the returned page
-        $queryBuilder->setFirstResult($firstResult);
-        $queryBuilder->setMaxResults($pageSize);
-
-        // Generate the Query
-        $query = $queryBuilder->getQuery();
-
-        // Generate the Paginator
-        $paginator = new Paginator($query, true);
-        return $paginator;
-    }
-
     //    /**
     //     * @return Professeur[] Returns an array of Professeur objects
     //     */

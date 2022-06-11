@@ -21,7 +21,7 @@ class ClasseFixture extends Fixture
             $classe = new Classe();
             $classe->setLibelle('WEB');
             $classe->setNiveau('L1');
-            $classe->setFilliere('SRT');
+            $classe->setFilliere('SRT' . $i);
             $classe->setRp($rp);
             $manager->persist($classe);
         }

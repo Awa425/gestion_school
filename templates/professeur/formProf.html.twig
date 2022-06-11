@@ -1,0 +1,43 @@
+
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="container">
+        {{ form_start(FormProf) }}
+            <fieldset>
+                <div class="form-group">
+                    <label for="nomComplet" class="form-label mt-4">Nom Complet</label>
+                    {# <input type="text" class="form-control" id="nomComplet" aria-describedby="namelHelp" placeholder="Votre nom complet"  name="nomComplet"> #}
+                    {{  form_widget(FormProf.nomComplet, { 'attr': { 'class': 'form-control', placeholder: "Votre nom complet"} } )}}
+                    <small id="namelHelp" class="form-text text-muted"></small>
+                </div>
+                <div class="form-group">
+                    <label for="nomComplet" class="form-label mt-4">Grade</label>
+                    {{  form_widget(FormProf.grade, { 'attr': { 'class': 'form-control', placeholder: "Grade"} } )}}
+                    {# <input type="text" class="form-control" id="nomComplet" aria-describedby="namelHelp" placeholder="Votre nom complet"  name="grade"> #}
+                    <small id="namelHelp" class="form-text text-muted"></small>
+                </div>
+                 <div class="form-group">
+                    <label for="nomComplet" class="form-label mt-4">Rp</label>
+                    {{  form_widget(FormProf.rp, { 'attr': { 'class': 'form-control'} } )}}
+                    {# <input type="text" class="form-control" id="nomComplet" aria-describedby="namelHelp" placeholder="Votre nom complet"  name="grade"> #}
+                    <small id="namelHelp" class="form-text text-muted"></small>
+                </div>
+                <div class="form-group">
+                    <label for="nomComplet" class="form-label mt-4">Module</label>
+                    {{  form_widget(FormProf.module, { 'attr': { 'class': 'form-control'} } )}}
+                    {# <input type="text" class="form-control" id="nomComplet" aria-describedby="namelHelp" placeholder="Votre nom complet"  name="grade"> #}
+                    <small id="namelHelp" class="form-text text-muted"></small>
+                </div>
+                <div class="form-group">
+                    <label for="nomComplet" class="form-label mt-4">Classe</label>
+                    {{  form_widget(FormProf.classe, { 'attr': { 'class': 'form-control'} } )}}
+                    {# <input type="text" class="form-control" id="nomComplet" aria-describedby="namelHelp" placeholder="Votre nom complet"  name="grade"> #}
+                    <small id="namelHelp" class="form-text text-muted"></small>
+                </div>
+
+                    {{  form_widget(FormProf.Save, { 'attr': { 'class': 'btn btn-primary'} } )}}
+                {# <button type="submit" class="btn btn-primary">Submit</button> #}
+            </fieldset>
+        {{ form_end(FormProf) }}
+    </div>
+{% endblock %}

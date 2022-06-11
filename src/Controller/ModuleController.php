@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Module;
+use App\Form\ModuleFormType;
 use App\Repository\ModuleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +16,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ModuleController extends AbstractController
 {
-    #[Route('/module', name: 'app_module')]
+    #[Route('/module/list', name: 'app_module')]
     public function index(ModuleRepository $modRepo, Request $request, PaginatorInterface $paginator): Response
     {
         $momodules = $modRepo->findAll();
@@ -25,26 +27,22 @@ class ModuleController extends AbstractController
         ]);
     }
 
-    #[Route('/add-module', name: 'add_module')]
-    public function addModule(Request $request, ModuleRepository $modRepo): Response
+    #[Route('/module/add', name: 'add_module')]
+    public function addModule(Request $request, EntityManagerInterface $em): Response
     {
-        if ($request->isMethod('GET')) {
-            $addModule = new Module();
-            $form = $this->createFormBuilder($addModule)
-                ->add('libelle', TextType::class)
-                ->add('Ajouter', SubmitType::class)
-                ->getForm();
-            return $this->render('module/moduleForm.html.twig', [
-                'Form' => $form->createView(),
 
-            ]);
+        $module = new Module();
+
+        $form = $this->createForm(ModuleFormType::class, $module);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->persist($module);
+
+            $em->flush();
         }
-        if ($request->isMethod('POST')) {
-            extract($_POST);
-            $module = new Module();
-            $module->setLibelle($form['libelle']);
-            $modRepo->add($module, true);
-            return $this->redirectToRoute("app_module");
-        }
+
+        return $this->render('module/moduleForm.html.twig', [
+            'Form' => $form->createView(),
+        ]);
     }
 }

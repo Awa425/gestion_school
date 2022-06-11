@@ -20,9 +20,10 @@
 	<div class="example-wrapper">
 		<table class="table table-hover">
 			<thead>
-				<tr>
+				<tr class="text-center">
 					<th scope="col">Num</th>
 					<th scope="col">Libelle</th>
+					<th scope="col">Options</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,9 +33,20 @@
 						<td>{% set i = i+1 %}
 							{{i}}</td>
 						<td>{{ module.libelle}}</td>
+						<td class="text-center">
+							<a href="" >Archiver</a>
+							<a href="" >Modifier</a>
+							<a href="">Detail</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
 	</div>
+	<div class='container '>
+		<span class=''>
+			{{ knp_pagination_render(modules) }}
+		</span>
+	</div>
+
 {% endblock %}

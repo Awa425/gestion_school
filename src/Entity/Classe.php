@@ -16,7 +16,7 @@ class Classe
     private $id;
 
     #[ORM\ManyToOne(targetEntity: Rp::class, inversedBy: 'classe')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $rp;
 
     #[ORM\ManyToMany(targetEntity: Professeur::class, mappedBy: 'classe')]
@@ -31,9 +31,13 @@ class Classe
     #[ORM\Column(type: 'string', length: 50)]
     private $libelle;
 
+    #[ORM\OneToMany(mappedBy: 'classes', targetEntity: Inscription::class)]
+    private $inscriptions;
+
     public function __construct()
     {
         $this->professeurs = new ArrayCollection();
+        $this->inscriptions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,6 +116,36 @@ class Classe
     public function setLibelle(string $libelle): self
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inscription>
+     */
+    public function getInscriptions(): Collection
+    {
+        return $this->inscriptions;
+    }
+
+    public function addInscription(Inscription $inscription): self
+    {
+        if (!$this->inscriptions->contains($inscription)) {
+            $this->inscriptions[] = $inscription;
+            $inscription->setClasses($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInscription(Inscription $inscription): self
+    {
+        if ($this->inscriptions->removeElement($inscription)) {
+            // set the owning side to null (unless already changed)
+            if ($inscription->getClasses() === $this) {
+                $inscription->setClasses(null);
+            }
+        }
 
         return $this;
     }

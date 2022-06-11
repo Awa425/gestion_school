@@ -3,7 +3,6 @@
 use App\Core\Role;
 use App\Core\Session;
 ?>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="#">Navbar</a>
@@ -11,37 +10,43 @@ use App\Core\Session;
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
+		{# {% if app.user %}{% endif %} #}
+		{# {% app.user%} #}
+
 		<div class="collapse navbar-collapse" id="navbarColor01">
 			<ul class="navbar-nav me-auto">
 				<li class="nav-item">
-					<a class="nav-link active" href="addAc">
+					<a class="nav-link active" href="">
 						Add AC</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="listerAc">
-						Liste AC</a>
+					<a class="nav-link active" href={{ path("app_module") }}>
+						Liste Module</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="">
+					<a class="nav-link active" href={{ path("app_etudiant") }}>
 						Liste Etudiants</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="">Liste Professeurs</a>
+					<a class="nav-link active" href={{ path("app_professeur") }}>Liste Professeurs</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="#">Liste Classes</a>
+					<a class="nav-link active" href={{ path("app_classe") }}>Liste Classes</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="">
-						>Inscrire etudiant</a>
+					<a class="nav-link active" href="{{ path("add_professeur")}}">
+						Add prof</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" href="">Deconnexion</a>
+					<a class="nav-link active" href={{ path("app_logout")}}>Deconnexion</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href={{ path("app_login")}}>Connexion</a>
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="#">Inscrire etudiant</a>
+						<a class="dropdown-item" href="#">Action</a>
 						<a class="dropdown-item" href="#">Another action</a>
 						<a class="dropdown-item" href="#">Something else here</a>
 						<div class="dropdown-divider"></div>

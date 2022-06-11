@@ -20,11 +20,12 @@
 	<div class="example-wrapper">
 		<table class="table table-hover">
 			<thead>
-				<tr>
+				<tr class='text-center'>
 					<th scope="col">Nom Complet</th>
 					<th scope="col">Adresse</th>
 					<th scope="col">Sexe</th>
 					<th scope="col">Matricule</th>
+					<th scope="col">Options</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,6 +35,11 @@
 						<td>{{ et.adresse}}</td>
 						<td>{{ et.sexe}}</td>
 						<td>{{ et.matricule}}</td>
+						<td class="text-center">
+							<a href="" >Archiver</a>
+							<a href="" >Modifier</a>
+							<a href="">Detail</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>

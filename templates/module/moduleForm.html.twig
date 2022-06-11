@@ -1,0 +1,17 @@
+{% extends "base.html.twig" %}
+{% block body %}
+
+
+    <div class="container">
+        {{ form_start(Form) }}
+           <div class="form-group">
+                <label for="module" class="form-label mt-4">Module</label>
+                {{  form_widget(Form.libelle, { 'attr': { 'class': 'form-control', placeholder: "Votre nom complet"} } )}}
+                <small id="namelHelp" class="form-text text-muted"></small>
+            </div>
+             {{  form_widget(Form.Ajouter, { 'attr': { 'class': 'btn btn-primary'} } )}}
+
+        {{ form_end(Form) }}
+    </div>
+
+{% endblock %}
