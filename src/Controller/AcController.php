@@ -26,12 +26,16 @@ class AcController extends AbstractController
     }
 
     #[Route('/ac/add', name: 'add_ac')]
-    public function addAc(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher): Response
+    #[Route('/ac/{id}/edit', name: 'ac_edit')]
+    public function addAc(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, Ac $ac = null): Response
     {
-        $ac = new Ac();
+        if (!$ac) {
+            $ac = new Ac();
+        }
         $form = $this->createForm(AcType::class, $ac);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            // dd($request);
             $plaintexPass = $ac->getPassword();
             $hashedPassword = $passwordHasher->hashPassword(
                 $ac,

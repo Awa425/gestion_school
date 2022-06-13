@@ -20,7 +20,56 @@
 	</head>
 	<body>
 
-		{% include "/partial/navBar.htm.twig" %}
-		{% block body %}{% endblock %}
+		{# {% include "/partial/navBar.htm.twig" %} #}
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+			<div class="container-fluid">
+				<a class="navbar-brand" href="#">Accueil</a>
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				{# {% if app.user %}{% endif %} #}
+				{# {% if app.user %} #}
+				<div class="collapse navbar-collapse" id="navbarColor01">
+					<ul class="navbar-nav me-auto">
+						<li class="nav-item">
+							<a class="nav-link active" href="">
+								Add AC</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href={{ path("app_module") }}>
+								Liste Module</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href={{ path("app_etudiant") }}>
+								Liste Etudiants</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href={{ path("app_professeur") }}>Liste Professeurs</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href={{ path("app_classe") }}>Liste Classes</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href="{{ path("add_professeur")}}">
+								Add prof</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href={{ path("app_logout")}}>Deconnexion</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link active" href={{ path("app_login")}}>Connexion</a>
+						</li>
+
+					</ul>
+					{# <form class="d-flex">
+																					<input class="form-control me-sm-2" type="text" placeholder="Search">
+																					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+																				</form> #}
+
+					{# {% endif %} #}
+
+				</div>
+			</div>
+		</body>
 	</body>
-</html>
+</html></nav>{% block body %}{% endblock %}</body></html>

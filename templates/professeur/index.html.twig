@@ -25,6 +25,7 @@
 				<tr>
 					<th scope="col">Nom Complet</th>
 					<th scope="col">Grade</th>
+					<th scope="col">Options</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -32,6 +33,11 @@
 					<tr>
 						<td>{{ p.nomComplet}}</td>
 						<td>{{ p.grade}}</td>
+						<td class="text-center">
+							<a href="">Archiver</a>
+							<a href={{ path("professeur_edit", {'id': p.id} )}}>Modifier</a>
+							<a href="">Detail</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>

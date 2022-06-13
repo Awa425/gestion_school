@@ -15,14 +15,14 @@ class Data extends Fixture
     {
 
 
-        for ($i = 2016; $i < 2022; $i++) {
-            $an = new AnneeScolaire();
-            $annee = $i . "-" . ($i + 1);
-            $an->setLibelle($annee)
-                ->setEtat(false);
-            $manager->persist($an);
-            $this->addReference('annee' . $i, $an);
-        }
-        $manager->flush();
+        // for ($i = 2016; $i < 2022; $i++) {
+        //     $an = new AnneeScolaire();
+        //     $annee = $i . "-" . ($i + 1);
+        //     $an->setLibelle($annee)
+        //         ->setEtat(false);
+        //     $manager->persist($an);
+        //     $this->addReference('annee' . $i, $an);
+        // }
+        // $manager->flush();
     }
 }

@@ -22,32 +22,32 @@ class Prof extends Fixture
 
     public function load(ObjectManager $manager): void
     {
-        for ($i = 0; $i < 20; $i++) {
-            $rp = new Rp();
-            $rp->setNomComplet("RP" . $i);
-            $rp->setRole("ROLE_RP");
-            $rp->setEmail("mailRPp" . $i);
-            $rp->setPassword("passer123");
-            $manager->persist($rp);
-            $module = new Module();
-            $module->setLibelle('Module ' . $i);
-            $manager->persist($module);
-            $prof = new Professeur();
-            $grade = ["MASTER", "INGENIEUR", "DOCTEUR"];
-            $mod = ["MATH", "PC", "ALGO"];
+        // for ($i = 0; $i < 20; $i++) {
+        //     $rp = new Rp();
+        //     $rp->setNomComplet("RP" . $i);
+        //     $rp->setRole("ROLE_RP");
+        //     $rp->setEmail("mailRPp" . $i);
+        //     $rp->setPassword("passer123");
+        //     $manager->persist($rp);
+        //     $module = new Module();
+        //     $module->setLibelle('Module ' . $i);
+        //     $manager->persist($module);
+        //     $prof = new Professeur();
+        //     $grade = ["MASTER", "INGENIEUR", "DOCTEUR"];
+        //     $mod = ["MATH", "PC", "ALGO"];
 
-            $pos = round(0, 2);
-            $prof->setNomComplet('Prof' . $i);
-            $prof->setRole("ROLE_PROFESSEUR");
-            $prof->setGrade($grade[$pos]);
+        //     $pos = round(0, 2);
+        //     $prof->setNomComplet('Prof' . $i);
+        //     $prof->setRole("ROLE_PROFESSEUR");
+        //     $prof->setGrade($grade[$pos]);
 
-            // $prof->addModule($this->getReference($module[$pos]));
-            $prof->addModule($module);
-            $prof->setRp($rp);
-            $manager->persist($prof);
-            $this->addReference("Professeur" . $i, $prof);
-        }
+        //     // $prof->addModule($this->getReference($module[$pos]));
+        //     $prof->addModule($module);
+        //     $prof->setRp($rp);
+        //     $manager->persist($prof);
+        //     $this->addReference("Professeur" . $i, $prof);
+        // }
 
-        $manager->flush();
+        // $manager->flush();
     }
 }

@@ -25,7 +25,7 @@ class ClasseController extends AbstractController
         ]);
     }
 
-    #[Route('/classe', name: 'add_classe')]
+    #[Route('/classe/add', name: 'add_classe')]
     #[Route('/classe/{id}/edit', name: 'classe_edit')]
     public function addClasse(Classe $classe = null, Request $request, EntityManagerInterface $em): Response
     {

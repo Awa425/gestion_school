@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello InscriptionController!
-{% endblock %}
+{# {% block title %}Hello EtudiantController!
+{% endblock %} #}
 
 {% block body %}
 	<style>
@@ -20,24 +20,40 @@
 	<div class="example-wrapper">
 		<table class="table table-hover">
 			<thead>
-				<tr>
+				<tr class='text-center'>
 					<th scope="col">Nom Complet</th>
 					<th scope="col">Adresse</th>
 					<th scope="col">Sexe</th>
 					<th scope="col">Matricule</th>
+					<th scope="col">Attache</th>
+					<th scope="col">Options</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for et in etudiant %}
+				{% for ins in insrits %}
 					<tr>
-						<td>{{ et.nomComplet}}</td>
-						<td>{{ et.adresse}}</td>
-						<td>{{ et.sexe}}</td>
-						<td>{{ et.matricule}}</td>
+						<td>{{ ins.etudiant.nomComplet}}</td>
+						<td>{{ ins.etudiant.adresse}}</td>
+						<td>{{ ins.etudiant.sexe}}</td>
+						<td>{{ ins.etudiant.matricule}}</td>
+						<td>{{ ins.ac.nomComplet}}</td>
+						{# <td>{{ ins.anneescolaire_id.libelle}}</td> #}
+						{# <td>{{ ins.classes.libelle}}</td> #}
+						{# <td>{{ ins.nomComplet}}</td> #}
+							<td class="text-center"> <a href="">Archiver</a>
+							<a href="">Modifier</a>
+							<a href="">Detail</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
 		</table>
 
+	</div>
+
+	<div class='container pagination'>
+		<span class=''>
+			{{ knp_pagination_render(insrits) }}
+		</span>
 	</div>
 {% endblock %}

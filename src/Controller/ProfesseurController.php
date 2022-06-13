@@ -37,6 +37,7 @@ class ProfesseurController extends AbstractController
         $form = $this->createForm(ProfType::class, $prof);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $prof->setRp($this->getUser());
             $em->persist($prof);
             $em->flush();
         }

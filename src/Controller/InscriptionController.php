@@ -6,6 +6,7 @@ use App\Entity\Ac;
 use App\Entity\Etudiant;
 use App\Entity\Inscription;
 use App\Entity\AnneeScolaire;
+use App\Form\EtudiantType;
 use App\Form\InscriptionType;
 use App\Repository\AcRepository;
 use Doctrine\Persistence\ObjectManager;
@@ -13,49 +14,55 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\InscriptionRepository;
 use App\Repository\AnneeScolaireRepository;
 use App\Repository\ClasseRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class InscriptionController extends AbstractController
 {
-    #[Route('/inscription', name: 'app_inscription')]
-    public function index(InscriptionRepository $repoIns): Response
+    #[Route('/etudiant/list', name: 'app_etudiant')]
+    public function index(InscriptionRepository $insRepo, Request $request, PaginatorInterface $paginator): Response
     {
+        $ins = $insRepo->findAll();
+        // dd($ins);
+        $pagination = $paginator->paginate($ins, $request->query->getInt("page", 1), 8);
         return $this->render('inscription/index.html.twig', [
-            'titre' => 'Liste des inscrit',
+            'title' => 'Liste des inscrits',
+            'insrits' => $pagination,
         ]);
     }
 
-    #[Route('/inscrire', name: 'inscrire_etudiant')]
-    public function inscrire(Request $request, EntityManagerInterface $em, AcRepository $acRepo, AnneeScolaireRepository $anRepo, ClasseRepository $classeRepo): Response
+    #[Route('/etudiant/inscrire', name: 'inscrire_etudiant')]
+    #[Route('/etudiant/{id}/edit', name: 'etudiant_edit')]
+    public function inscrire(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, AcRepository $acRepo, AnneeScolaireRepository $anRepo, ClasseRepository $classeRepo, Etudiant $etu = null): Response
     {
-        $etu = new Etudiant();
-
-        $acs = $acRepo->findAll();
+        if (!$etu) {
+            $etu = new Etudiant();
+        }
+        //C'est pour les afficher a la vue
         $classes = $classeRepo->findAll();
-        $anSc = $anRepo->findAll();
 
-        $formEtu = $this->createFormBuilder($etu)
-            ->add('nomComplet')
-            ->add('email')
-            ->add('password')
-            ->add('adresse')
-            ->add('sexe')
-            ->add('matricule')
-            ->getForm();
-
+        $formEtu = $this->createForm(EtudiantType::class, $etu);
         $formEtu->handleRequest($request);
         $ins = new Inscription();
         if ($formEtu->isSubmitted() && $formEtu->isValid()) {
-            $acIns = $acRepo->find($request->get('ac'));
-            $anIns = $anRepo->find($request->get('anneescolaire_id'));
+            $anIns = $anRepo->findOneBy(['etat' => 1]);
             $classeIns = $classeRepo->find($request->get('clases'));
-            // dd($anIns);
+            $plaintexPass = $etu->getPassword();
+            $hashedPassword = $passwordHasher->hashPassword(
+                $etu,
+                $plaintexPass
+            );
+            $etu->setPassword($hashedPassword);
+            $etu->setRoles(['ROLE_ETUDIANT']);
             $em->persist($etu);
-            $ins->setAc($acIns);
+            $ins->setAc($this->getUser());
             $ins->setAnneescolaireId($anIns);
             $ins->setClasses($classeIns);
             $ins->setEtudiant($etu);
@@ -65,8 +72,6 @@ class InscriptionController extends AbstractController
         return $this->render('inscription/inscrire.html.twig', [
             'titre' => 'Liste des inscrit',
             'formEtu' => $formEtu->createView(),
-            "acs" => $acs,
-            "anSc" => $anSc,
             "classes" => $classes
         ]);
     }

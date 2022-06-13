@@ -24,7 +24,7 @@
 					<th scope="col">Nom Complet</th>
 					<th scope="col">Login</th>
 					<th scope="col">Password</th>
-					{# <th scope="col">Rp</th> #}
+					<th scope="col">Options</th>
 
 				</tr>
 			</thead>
@@ -34,7 +34,11 @@
 						<td>{{ a.nomComplet}}</td>
 						<td>{{ a.email}}</td>
 						<td>{{ a.Password}}</td>
-						{# <td>{{ a.rp}}</td> #}
+						<td class="text-center">
+							<a href="">Archiver</a>
+							<a href={{ path("ac_edit", {'id': a.id} )}}>Modifier</a>
+							<a href="">Detail</a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>
