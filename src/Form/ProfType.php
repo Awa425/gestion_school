@@ -19,20 +19,12 @@ class ProfType extends AbstractType
         $builder
             ->add('nomComplet')
             ->add('grade')
-            // ->add('rp', EntityType::class, array(
-            //     'class' => Rp::class,
-            //     'choice_label' => function ($rp) {
-            //         return $rp->getNomComplet();
-            //     },
-            //     'multiple' => false
-            // ))
             ->add('module', EntityType::class, array(
                 'class' => Module::class,
                 'choice_label' => function ($module) {
                     return $module->getLibelle();
                 },
                 'multiple' => true
-
             ))
             ->add('classe', EntityType::class, array(
                 'class' => Classe::class,

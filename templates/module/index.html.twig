@@ -4,18 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
+	<style></style>
 
 	<div class="example-wrapper">
 		<table class="table table-hover">
@@ -29,13 +18,13 @@
 			<tbody>
 				{% set i=0 %}
 				{% for module in modules %}
-					<tr>
+					<tr class="text-center">
 						<td>{% set i = i+1 %}
 							{{i}}</td>
 						<td>{{ module.libelle}}</td>
 						<td class="text-center">
-							<a href="" >Archiver</a>
-							<a href="" >Modifier</a>
+							<a href="">Archiver</a>
+							<a href="">Modifier</a>
 							<a href="">Detail</a>
 						</td>
 					</tr>

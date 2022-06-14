@@ -34,6 +34,9 @@ class Classe
     #[ORM\OneToMany(mappedBy: 'classes', targetEntity: Inscription::class)]
     private $inscriptions;
 
+    // #[ORM\Column(type: 'boolean', nullable: true)]
+    // private $etat;
+
     public function __construct()
     {
         $this->professeurs = new ArrayCollection();
@@ -83,6 +86,8 @@ class Classe
 
         return $this;
     }
+
+
 
     public function getNiveau(): ?string
     {
@@ -146,6 +151,18 @@ class Classe
                 $inscription->setClasses(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

@@ -21,6 +21,9 @@ class Module
     #[ORM\Column(type: 'string', length: 30, nullable: true)]
     private $libelle;
 
+    // #[ORM\Column(type: 'boolean', nullable: true)]
+    // private $etat;
+
     public function __construct()
     {
         $this->professeurs = new ArrayCollection();
@@ -66,6 +69,18 @@ class Module
     public function setLibelle(?string $libelle): self
     {
         $this->libelle = $libelle;
+
+        return $this;
+    }
+
+    public function isEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

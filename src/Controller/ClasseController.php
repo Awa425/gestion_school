@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Classe;
+use App\Form\ClasseType;
 use App\Repository\ClasseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -14,7 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class ClasseController extends AbstractController
 {
-    #[Route('/classe-liste', name: 'app_classe')]
+    #[Route('/classe/list', name: 'app_classe')]
     public function index(ClasseRepository $classeRepo, Request $request, PaginatorInterface $paginator): Response
     {
         $classes = $classeRepo->findAll();
@@ -32,12 +33,7 @@ class ClasseController extends AbstractController
         if (!$classe) {
             $classe = new Classe();
         }
-        $form = $this->createFormBuilder($classe)
-            ->add('libelle')
-            ->add('niveau')
-            ->add('filliere')
-            ->add('Ajouter', SubmitType::class)
-            ->getForm();
+        $form = $this->createForm(ClasseType::class, $classe);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($classe);

@@ -47,8 +47,23 @@ class InscriptionController extends AbstractController
         }
         //C'est pour les afficher a la vue
         $classes = $classeRepo->findAll();
-
         $formEtu = $this->createForm(EtudiantType::class, $etu);
+
+        // $formEtu = $this->createFormBuilder($etu)
+        //     ->add('nomComplet')
+        //     ->add('email')
+        //     ->add('password')
+        //     ->add('adresse')
+        //     ->add('sexe', ChoiceType::class, [
+        //         'choices' => [
+        //             'masculin' => 1,
+        //             'Feminin' => 0
+        //         ],
+
+        //     ])
+        //     ->add('matricule')
+        //     ->getForm();
+
         $formEtu->handleRequest($request);
         $ins = new Inscription();
         if ($formEtu->isSubmitted() && $formEtu->isValid()) {

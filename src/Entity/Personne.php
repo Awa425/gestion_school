@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: PersonneRepository::class)]
 #[ORM\InheritanceType("JOINED")]
 #[ORM\DiscriminatorColumn(name: "type", type: "string")]
-#[ORM\DiscriminatorMap(["rp"=>"Rp", "ac"=>"Ac", "etudiant"=>"Etudiant", "professeur"=>"Professeur", "user"=>"User"])]
+#[ORM\DiscriminatorMap(["rp" => "Rp", "ac" => "Ac", "etudiant" => "Etudiant", "professeur" => "Professeur", "user" => "User"])]
 class Personne
 {
     #[ORM\Id]
@@ -18,6 +18,9 @@ class Personne
 
     #[ORM\Column(type: 'string', length: 50)]
     protected $nomComplet;
+
+    // #[ORM\Column(type: 'boolean', nullable: true)]
+    // private $etat;
 
     public function getId(): ?int
     {
@@ -44,6 +47,18 @@ class Personne
     public function setRole(string $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function isEtat(): ?bool
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?bool $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }

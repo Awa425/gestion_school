@@ -28,46 +28,41 @@
 					<span class="navbar-toggler-icon"></span>
 				</button>
 				{# {% if app.user %}{% endif %} #}
-				{# {% if app.user %} #}
 				<div class="collapse navbar-collapse" id="navbarColor01">
 					<ul class="navbar-nav me-auto">
-						<li class="nav-item">
-							<a class="nav-link active" href="">
-								Add AC</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href={{ path("app_module") }}>
-								Liste Module</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href={{ path("app_etudiant") }}>
-								Liste Etudiants</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href={{ path("app_professeur") }}>Liste Professeurs</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href={{ path("app_classe") }}>Liste Classes</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href="{{ path("add_professeur")}}">
-								Add prof</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href={{ path("app_logout")}}>Deconnexion</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link active" href={{ path("app_login")}}>Connexion</a>
-						</li>
-
+						{% if app.user %}
+							<li class="nav-item">
+								<a class="nav-link active" href="">
+									Add AC</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href={{ path("app_module") }}>
+									Liste Module</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href={{ path("app_etudiant") }}>
+									Liste Etudiants</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href={{ path("app_professeur") }}>Liste Professeurs</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href={{ path("app_classe") }}>Liste Classes</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href="{{ path("add_professeur")}}">
+									Add prof</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link active" href={{ path("app_logout")}}>Deconnexion</a>
+							</li>
+						{% endif %}
+						{% if not app.user %}
+							<li class="nav-item">
+								<a class="nav-link active" href={{ path("app_login")}}>Connexion</a>
+							</li>
+						{% endif %}
 					</ul>
-					{# <form class="d-flex">
-																					<input class="form-control me-sm-2" type="text" placeholder="Search">
-																					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-																				</form> #}
-
-					{# {% endif %} #}
-
 				</div>
 			</div>
 		</body>

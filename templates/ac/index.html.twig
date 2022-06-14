@@ -4,36 +4,22 @@
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
+	<style></style>
 
 	<div class="example-wrapper">
 		<table class="table table-hover">
 			<thead>
-				<tr>
+				<tr class="text-center">
 					<th scope="col">Nom Complet</th>
 					<th scope="col">Login</th>
-					<th scope="col">Password</th>
 					<th scope="col">Options</th>
-
 				</tr>
 			</thead>
 			<tbody>
 				{% for a in ac %}
-					<tr>
+					<tr class="text-center">
 						<td>{{ a.nomComplet}}</td>
 						<td>{{ a.email}}</td>
-						<td>{{ a.Password}}</td>
 						<td class="text-center">
 							<a href="">Archiver</a>
 							<a href={{ path("ac_edit", {'id': a.id} )}}>Modifier</a>
