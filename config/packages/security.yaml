@@ -34,7 +34,7 @@ security:
     access_control:
         # - { path: ^/rp, roles: ROLE_RP }
         # - { path: ^/ac, roles: ROLE_RP }
-        # - { path: /etudiant/list, roles: ROLE_RP }
+        # - { path: ^/etudiant/, roles: ROLE_RP }
         # - { path: ^/etudiant, roles: ROLE_AC }
         # - { path: ^/prof, roles: ROLE_RP }
         # - { path: ^/module, roles: ROLE_RP }

@@ -1,52 +1,8 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-	{{ form_start(formEtu) }}
-	<div class='row'>
-		<div class="container col-9">
-			<fieldset>
-				<div class="form-group">
-					<label for="nomComplet" class="form-label mt-4">Nom Complet</label>
-					{{  form_widget(formEtu.nomComplet, { 'attr': { 'class': 'form-control'} } )}}
-					<small id="namelHelp" class="form-text text-muted"></small>
-				</div>
-				<div class="form-group">
-					<label for="exampleInputEmail1" class="form-label mt-4">Login</label>
-					{{  form_widget(formEtu.email, { 'attr': { 'class': 'form-control'} } )}}
-					<small id="emailHelp" class="form-text text-muted"></small>
-				</div>
-				<div class="form-group">
-					<label for="exampleInputPassword1" class="form-label mt-4">Password</label>
-					{{  form_widget(formEtu.password, { 'attr': { 'class': 'form-control'} } )}}
-				</div>
-				<div class="form-group">
-					<label for="nomComplet" class="form-label mt-4">Adresse</label>
-					{{  form_widget(formEtu.adresse, { 'attr': { 'class': 'form-control'} } )}}
-					<small id="namelHelp" class="form-text text-muted"></small>
-				</div>
-				<div class="form-group">
-					<label for="nomComplet" class="form-label mt-4">Sexe</label>
-					{{  form_widget(formEtu.sexe, { 'attr': { 'class': 'form-control'} } )}}
-					<small id="namelHelp" class="form-text text-muted"></small>
-				</div>
-				<div class="form-group">
-					<label for="nomComplet" class="form-label mt-4">Matricule</label>
-					{{  form_widget(formEtu.matricule, { 'attr': { 'class': 'form-control'} } )}}
-					<small id="namelHelp" class="form-text text-muted"></small>
-				</div>
+	<div class="container col-6">
+		{{ form_start(formEtu) }}
 
-				<div class="row">
-					<select class="form-select" name="clases" id="exampleSelect1">
-						<option disabled selected>--Veuillez choisir classe--</option>
-						{% for classe in classes %}
-							<option value="{{classe.id}}">{{classe.libelle}}</option>
-
-						{% endfor %}
-					</select>
-				</div>
-				<input type="submit" class="btn btn-primary">Inscrire</input>
-
-		</fieldset>
+		{{ form_end(formEtu) }}
 	</div>
-
-</div>
-{{ form_end(formEtu) }}{% endblock %}
+{% endblock %}

@@ -8,6 +8,8 @@ use App\Entity\Inscription;
 use App\Entity\AnneeScolaire;
 use App\Form\EtudiantType;
 use App\Form\InscriptionType;
+use App\Form\InscritType;
+use App\Form\ReinscriptionType;
 use App\Repository\AcRepository;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -15,6 +17,7 @@ use App\Repository\InscriptionRepository;
 use App\Repository\AnneeScolaireRepository;
 use App\Repository\ClasseRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -30,7 +33,6 @@ class InscriptionController extends AbstractController
     public function index(InscriptionRepository $insRepo, Request $request, PaginatorInterface $paginator): Response
     {
         $ins = $insRepo->findAll();
-        // dd($ins);
         $pagination = $paginator->paginate($ins, $request->query->getInt("page", 1), 8);
         return $this->render('inscription/index.html.twig', [
             'title' => 'Liste des inscrits',
@@ -40,54 +42,70 @@ class InscriptionController extends AbstractController
 
     #[Route('/etudiant/inscrire', name: 'inscrire_etudiant')]
     #[Route('/etudiant/{id}/edit', name: 'etudiant_edit')]
-    public function inscrire(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, AcRepository $acRepo, AnneeScolaireRepository $anRepo, ClasseRepository $classeRepo, Etudiant $etu = null): Response
+    public function inscrire(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, AcRepository $acRepo, AnneeScolaireRepository $anRepo, ClasseRepository $classeRepo, Inscription $ins = null): Response
     {
-        if (!$etu) {
-            $etu = new Etudiant();
+        if (!$ins) {
+            $ins = new Inscription();
         }
-        //C'est pour les afficher a la vue
-        $classes = $classeRepo->findAll();
-        $formEtu = $this->createForm(EtudiantType::class, $etu);
-
-        // $formEtu = $this->createFormBuilder($etu)
-        //     ->add('nomComplet')
-        //     ->add('email')
-        //     ->add('password')
-        //     ->add('adresse')
-        //     ->add('sexe', ChoiceType::class, [
-        //         'choices' => [
-        //             'masculin' => 1,
-        //             'Feminin' => 0
-        //         ],
-
-        //     ])
-        //     ->add('matricule')
-        //     ->getForm();
-
+        $formEtu = $this->createForm(InscriptionType::class, $ins);
         $formEtu->handleRequest($request);
-        $ins = new Inscription();
         if ($formEtu->isSubmitted() && $formEtu->isValid()) {
             $anIns = $anRepo->findOneBy(['etat' => 1]);
-            $classeIns = $classeRepo->find($request->get('clases'));
-            $plaintexPass = $etu->getPassword();
+            $plaintexPass = "passer";
             $hashedPassword = $passwordHasher->hashPassword(
-                $etu,
+                $ins->getEtudiant(),
                 $plaintexPass
             );
-            $etu->setPassword($hashedPassword);
-            $etu->setRoles(['ROLE_ETUDIANT']);
-            $em->persist($etu);
+            $ins->getEtudiant()->setPassword($hashedPassword);
+            $matri = date('Y\M\A\THisdm');
+            $ins->getEtudiant()->setRoles(['ROLE_ETUDIANT']);
+            $ins->getEtudiant()->setMatricule($matri);
+            $em->persist($ins);
             $ins->setAc($this->getUser());
             $ins->setAnneescolaireId($anIns);
-            $ins->setClasses($classeIns);
-            $ins->setEtudiant($etu);
+            // dd($ins);
+            // $ins->setClasses($classeIns);
             $em->persist($ins);
             $em->flush();
         }
         return $this->render('inscription/inscrire.html.twig', [
             'titre' => 'Liste des inscrit',
             'formEtu' => $formEtu->createView(),
-            "classes" => $classes
+            // "classes" => $classes
+        ]);
+    }
+
+
+    #[Route('/etudiant/{id}/reinscrire', name: 'etudiant_reinscrire')]
+    public function reinscrire(Request $request, EntityManagerInterface $em, UserPasswordHasherInterface $passwordHasher, AcRepository $acRepo, AnneeScolaireRepository $anRepo, ClasseRepository $classeRepo, Etudiant $etu): Response
+    {
+        $ins = new Inscription();
+        $ins->setEtudiant($etu);
+        $formEtu = $this->createForm(ReinscriptionType::class, $ins);
+        $formEtu->handleRequest($request);
+        if ($formEtu->isSubmitted() && $formEtu->isValid()) {
+            $anIns = $anRepo->findOneBy(['etat' => 1]);
+            $plaintexPass = "passer";
+            $hashedPassword = $passwordHasher->hashPassword(
+                $ins->getEtudiant(),
+                $plaintexPass
+            );
+            $ins->getEtudiant()->setPassword($hashedPassword);
+            $matri = date('Y\M\A\THisdm');
+            $ins->getEtudiant()->setRoles(['ROLE_ETUDIANT']);
+            $ins->getEtudiant()->setMatricule($matri);
+            $em->persist($ins);
+            $ins->setAc($this->getUser());
+            $ins->setAnneescolaireId($anIns);
+            // dd($ins);
+            // $ins->setClasses($classeIns);
+            $em->persist($ins);
+            $em->flush();
+        }
+        return $this->render('inscription/inscrire.html.twig', [
+            'titre' => 'Liste des inscrit',
+            'formEtu' => $formEtu->createView(),
+            // "classes" => $classes
         ]);
     }
 }

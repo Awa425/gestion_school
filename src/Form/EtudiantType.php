@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Classe;
 use App\Entity\Etudiant;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -15,17 +17,13 @@ class EtudiantType extends AbstractType
         $builder
             ->add('nomComplet')
             ->add('email')
-
-            ->add('password')
-            ->add('matricule')
+            ->add('adresse')
             ->add('sexe', ChoiceType::class, [
                 'choices' => [
                     'masculin' => 1,
                     'Feminin' => 0
                 ],
-
-            ])
-            ->add('adresse');
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

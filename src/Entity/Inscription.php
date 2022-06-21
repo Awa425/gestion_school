@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\InscriptionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Cascade;
 
 #[ORM\Entity(repositoryClass: InscriptionRepository::class)]
 class Inscription
@@ -22,7 +23,7 @@ class Inscription
     #[ORM\JoinColumn(nullable: false)]
     private $ac;
 
-    #[ORM\ManyToOne(targetEntity: Etudiant::class, inversedBy: 'inscription')]
+    #[ORM\ManyToOne(targetEntity: Etudiant::class, inversedBy: 'inscription', cascade: ['persist'])]
     #[ORM\JoinColumn(nullable: false)]
     private $etudiant;
 
